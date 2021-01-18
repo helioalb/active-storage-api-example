@@ -9,6 +9,16 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def show
+    user = User.find_by(id: params[:id])
+
+    if user.present?
+      render json: success_json(user), status: :ok
+    else
+      head :not_found
+    end
+  end
+
   private
 
   def create_params
