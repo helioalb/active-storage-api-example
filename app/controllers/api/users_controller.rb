@@ -19,6 +19,16 @@ class Api::UsersController < ApplicationController
     end
   end
 
+  def avatar
+    user = User.find_by(id: params[:id])
+
+    if user&.avatar&.attached?
+      redirect_to rails_blob_url(user.avatar)
+    else
+      head :not_found
+    end
+  end
+
   private
 
   def create_params
